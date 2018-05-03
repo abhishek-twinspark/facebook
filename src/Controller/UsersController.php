@@ -11,7 +11,7 @@ use App\Controller\AppController;
  */
 class UsersController extends AppController
 {
-    
+
     /**
      * Index method
      *
@@ -35,9 +35,6 @@ class UsersController extends AppController
         $this->set('user', $user);
         $this->set('messages',$messages);
         $this->set('friends',$friends);
-        
-        // $notifications=$this->Notifications->findById($userId)->toArray();
-        // $this->set('notifications',$notifications);
     }
 
     public function handleRequest($id, $accept) {
@@ -54,12 +51,12 @@ class UsersController extends AppController
         $user['notificationType_id']=2;
         $user['object_id']=$id;
         $new = $this->Notifications->patchEntity($new,$user);
-        
+
         if(!$this->Notifications->save($new)){
-          throw new Exception("Error Processing Request", 1);        
+          throw new Exception("Error Processing Request", 1);
         }
       }else{
-        $request->status = null;        
+        $request->status = null;
       }
 
       if(!$this->Friends->save($request)){
@@ -70,7 +67,7 @@ class UsersController extends AppController
       $this->set('status', $status);
       $this->set('request', $request);
       $this->set('_serialize',['status','request']);
-     
+
     }
 
     /**
@@ -85,10 +82,11 @@ class UsersController extends AppController
         $this->loadModel('Friends');
 
         $friends=$this->Friends->find()->where(['sender_id'=>$id])->contain('Receivers')->toArray();
+        //pr($friends); die;
         $user = $this->Users->get($id, [
-            'contain' => ['Roles', 'Likes', 'Notifications']
+            'contain' => ['Likes', 'Notifications']
         ]);
-
+          //pr($user); die;
 
         $this->set('user', $user);
         $this->set('friends',$friends);
@@ -178,32 +176,25 @@ class UsersController extends AppController
         $this->loadModel('Messages');
         $message = $this->Messages->newEntity();
 
-        
+
             $message = $this->Messages->patchEntity($message, $data);
 
             if ($this->Messages->save($message)) {
-        
+
         $user=[];
         $new = $this->Notifications->newEntity();
         $user['user_id']=$message['receiver_id'];
         $user['notificationType_id']=1;
         $user['object_id']=$message->id;
         $new = $this->Notifications->patchEntity($new,$user);
-        
+
         if(!$this->Notifications->save($new)){
-          throw new Exception("Error Processing Request", 1);        
+          throw new Exception("Error Processing Request", 1);
         }
 
 
                  //return $this->redirect(['action' => 'vie']);
             }
-            
-        
-
-
-
-
-
 
     }
 
@@ -277,25 +268,25 @@ public function isAuthorized($user)
 }
 public function friend(){
   $data=$this->request->getData();
-  
+
   $this->loadModel('Friends');
   $friend = $this->Friends->newEntity();
   $friend['sender_id']=$this->Auth->user('id');
   $friend['receiver_id']=$data['receiver_id'];
   $friend['status']=0;
-  
+
         if ($this->request->is('post')) {
             $friend = $this->Friends->patchEntity($friend, $data);
-            
+
             if ($this->Friends->save($friend)) {
-              
+
                 //$this->Flash->success(__('The friend has been saved.'));
 
-                
+
             }
             //$this->Flash->error(__('The friend could not be saved. Please, try again.'));
         }
-    
+
 
 
 }
@@ -304,7 +295,7 @@ public function friend(){
 
     }
     public function ajaxSearch($searchText){
-      // pr($searchText); die;
+
       $this->viewBuilder()->setLayout('searchResult-default');
       // $post=$this->request->getData();
       //pr($post);die;
@@ -312,11 +303,11 @@ public function friend(){
       // pr($query); die;
        $user = $this->Users->find()->where(['name'=>$searchText])->toArray();
       $this->set('user',$user);
-      
+
       // $this->redirect(['controller'=>'Users','action'=>'add','ajax_search']);
       // return $this->redirect()->view()
       }
-      public function search(){} 
+      public function search(){}
 
   public function register()
 
@@ -362,5 +353,5 @@ public function friend(){
            $this->set('_serialize',['user']);
     }
 
-   
+
 }

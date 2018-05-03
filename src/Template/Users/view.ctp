@@ -18,14 +18,17 @@
                                 <p>
                                     <?php echo $user['email']; ?>
                                 </p>
-                                
+
                                 <div class="user-button">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <button type="button" onclick='message(<?= $user->id ?>)' class="btn btn-primary btn-sm btn-block" id = "message"><i class="fa fa-envelope"></i> Send Message</button>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="button" class="btn btn-danger" title="Add Post" value="Add Post" onClick="javascipt:window.location.href='<?php echo $this->Url->build(["controller"=>"Posts","action"=>"add"]); ?>'" >
+                                            <input type="button" class="btn btn-danger btn-sm btn-block" title="Add Post" value="Add Post" onClick="javascipt:window.location.href='<?php echo $this->Url->build(["controller"=>"Posts","action"=>"post",$user->id]); ?>'" >
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="button" class="btn btn-info btn-sm btn-block" title="Add Post" value="View Timeline" onClick="javascipt:window.location.href='<?php echo $this->Url->build(["controller"=>"Posts","action"=>"view",$user->id]); ?>'" >
                                         </div>
                                     </div>
                                 </div>
@@ -200,7 +203,7 @@
                                 <h3><i class="fa fa-envelope-o"></i> All</h3>
                                 <small><i class="fa fa-tim"></i> You have 22 new messages and 16 waiting in draft folder.</small>
                             </div>
-                            
+
                             <div class="ibox-content">
                                 <div class="feed-activity-list">
                                     <?php foreach($friends as $friend):?>
@@ -212,13 +215,13 @@
                                             <small class="pull-right text-navy"><?= $this->Html->link('View Profile', ['controller' => 'Users', 'action' => 'view', $friend->receiver_id]) ?></small>
                                             <strong><?= $friend->receiver->name ?></strong>
                                             <div><?= $friend->receiver->email?></div>
-                                            
+
                                             <small class="text-muted"></small>
                                        <?php else: ?>
                                             <small class="pull-right text-navy"><?= $this->Html->link('View Profile', ['controller' => 'Users', 'action' => 'view', $friend->sender_id]) ?></small>
                                             <strong><?= $friend->sender->name ?></strong>
                                             <div><?= $friend->sender->email?></div>
-                                            
+
                                             <small class="text-muted"></small>
 
                                        <?php endif; ?>
@@ -227,17 +230,15 @@
                             <?php endforeach; ?>
 
 
-                                   
+
                                 </div>
-                            
+
                             </div>
                         </div>
                     </div>
             </div>
-            
-            <script>            
- 
 
+            <script>
 
 var url1 = '<?= $this->Url->build([
 "controller" => "Users",
@@ -247,21 +248,19 @@ var url1 = '<?= $this->Url->build([
 
         function message(receiver_id) {
             var message= prompt("Write your message here");
-                    
+
              console.log(message);
 
           message = {
             message: message,
             receiver_id: receiver_id
           }
-          
-           
+
             $.ajax({
                 type: 'POST',
                 data: message,
                 url: url1,
-                success:function(data) {
-                  
+                success:function(data) {           
                  alert("Message sent successfully");
                  $("p").text(data);
 
@@ -291,4 +290,3 @@ var url1 = '<?= $this->Url->build([
 </style>
 
 </html>
-                            
