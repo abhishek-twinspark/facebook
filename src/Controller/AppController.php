@@ -103,9 +103,10 @@ class AppController extends Controller
         $this->loadModel("Notifications");
         // $typeName=$this->Notifications->find()->toArray();
             $notifications=$this->Notifications->findByUserId($user['id'])
-                                                ->contain(['Messages.Senders','Friends.Receivers','Likes','Posts.Senders'])
-                                                ->all();
-            
+                                                ->contain(['Messages.Senders','Friends.Receivers','Posts.Senders','Likes'])
+                                                ->all()
+                                                ->toArray();
+            // pr($notifications);die;
             // 'Messages.Senders','Likes','Friends.Receivers'
             
         $this->set('notifications',$notifications);

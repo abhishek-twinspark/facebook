@@ -120,12 +120,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 
 
                 <li class="dropdown">
-                  <div class="text-center link-block">
                     <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                         <i class="fa fa-bell"></i>  <span class="label label-primary"><?php echo sizeof($notifications) ?></span>
                     </a>
-                  </div>
-      
                     <ul class="dropdown-menu dropdown-alerts">
                         <?php  foreach($notifications as $notification): ?>
 
@@ -134,7 +131,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                               <a>
                                 <div>
                                     <i class="fa fa-envelope fa-fw"></i> <?= $notification->message->sender->name ?> has sent you a message.
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                    <span class="pull-right text-muted small"></span>
                                 </div>
                               </a>
                             
@@ -148,29 +145,39 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                             <a>
                                 <div> 
                                     <i class="fa fa-twitter fa-fw"></i> <?= $notification->friend->receiver->name ?> has accepted your friend request.
-                                    <span class="pull-right text-muted small">12 minutes ago</span>
+                                    <span class="pull-right text-muted small"></span>
                                 </div>
                             </a>
                         </li>
                         
                         <li class="divider"></li>
                         <?php endif;?>
-                        <?php  if(($notification->notificationType_id)==3):?>
+                        <?php  if(($notification->notificationType_id)==4):?>
                         <li>
                             <a href="grid_options.html">
                                 <div>
-                                    <i class="fa fa-upload fa-fw"></i><?= $notification->like->user->name ?> 
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                  <?php  if(isset($notification->post) && $notification->post){
+                                  ?>
+                                    <i class="fa fa-upload fa-fw"></i><?= $notification->post->sender->name ?>  posted on your profile.
+                                  <?php }?>
+                                    <span class="pull-right text-muted small"></span>
                                 </div>
                             </a>
                         </li>
                           <?php endif;?>
-                           <?php  if(($notification->notificationType_id)==4):?>
+                          <li class="divider"></li>
+                           <?php  if(($notification->notificationType_id)==3):?>
                         <li>
                             <a href="grid_options.html">
                                 <div>
-                                    <i class="fa fa-upload fa-fw"></i> <?= $notification->post->receiver->name?>
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                  <?php
+                                  
+                                  
+                                  
+                                  ?>
+                                    <i class="fa fa-upload fa-fw"></i> You have a new like on your post.
+                                    <span class="pull-right text-muted small"></span>
+                                  
                                 </div>
                             </a>
                         </li>
@@ -179,6 +186,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                             
                         
                    <?php endforeach;?>
+                        
                         
 </ul>
 
@@ -190,7 +198,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </nav>
         </div>
           <div style="margin:0 0 0 12px;">
-            <h4 class="fb logo-namee"> <?php echo $this->Html->link('Facetube','/Users/index', array('class'=>'button'))?></h4>
+            <h4 class="fb logo-namee"> <?php echo $this->Html->link('Facebook','/Users/index', array('class'=>'button'))?></h4>
           </div>
           <!-- top nav end -->
           <div class="wrapper wrapper-content">

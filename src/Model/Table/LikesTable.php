@@ -61,7 +61,7 @@ class LikesTable extends Table
      * @return \Cake\Validation\Validator
      */
     public function findObjectFinder(Query $query, Array $array){
-        return $query->where(['notificationType_id'=>3]);
+        return $query->where(['object_id'=>3]);
     }
     public function validationDefault(Validator $validator)
     {

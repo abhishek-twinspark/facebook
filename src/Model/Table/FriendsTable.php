@@ -44,7 +44,7 @@ class FriendsTable extends Table
         $this->belongsTo('Senders', [
             'className' => 'Users',
             'foreignKey' => 'sender_id',
-            'joinType' => 'INNER'
+            'joinType' => 'LEFT'
         ]);
         $this->belongsTo('Receivers', [
             'className' => 'Users',

@@ -120,23 +120,28 @@ class PostsController extends AppController
         $post['receiver_id']=$id;
         $post['active'] = 1;
         if($this->Posts->save($post)) {
-          $user=[];
-       $new = $this->Notifications->newEntity();
-
+          if($post['receiver_id']!=$post['sender_id']){
+            $new = $this->Notifications->newEntity();
+        $user=[];
        $user['user_id']=$post['receiver_id'];
-       $user['notificationType_id']=3;
+       $user['notificationType_id']=4;
        $user['object_id']=$post->id;
        $new = $this->Notifications->patchEntity($new,$user);
 
        if(!$this->Notifications->save($new)){
          throw new Exception("Error Processing Request");
        }
-       if($post['sender_id']!==$post['receiver_id']){
-            return $this->redirect(['controller'=>'Posts','action'=>'index'],$post['receiver_id']);}
-        }
-        else{
-            return $this->redirect(['controller'=>'Posts','action'=>'index']);
-        }
+       
+          }
+
+            if($post["sender_id"]!=$post["receiver_id"]){
+            return $this->redirect(['controller'=>'Posts','action'=>'view',$post->receiver_id]);
+          }
+          else{
+            return $this->redirect(['controller'=>'Posts','action'=>'index',$post->receiver_id]);
+          }
+          }
+        
       }
 
 

@@ -16,12 +16,15 @@
             </div>
             <div class="social-body">
               <p>
+                     <?= ($this->Html->image('/'.$posts['attach'], ['alt' => 'IMAGE'])) ?> </td>
+                  </p>
+              <p>
 
                 <td><?= h($posts->description) ?></td>
               </p>
 
               <div class="btn-group">
-                <button class="btn btn-white btn-xs" onclick="like(<?= $posts->id ?>, <?= $posts->receiver_id ?>, <?= count($posts->likes)?>)"><i class="fa fa-thumbs-up"></i> <span id ="<?= 'like'.$posts->id ?>"><?= count($posts->likes)?></span></button>
+                <button  class="btn btn-white btn-xs" onclick="like(<?= $posts->id ?>, <?= $posts->receiver_id ?>, <?= count($posts->likes)?>)"><i class="fa fa-thumbs-up"></i> <span id ="<?= 'like'.$posts->id ?>"><?= count($posts->likes)?></span></button>
                 <!-- <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Comment</button> -->
                 <!-- <button class="btn btn-white btn-xs"><i class="fa fa-share"></i> Share</button> -->
               </div>
@@ -69,9 +72,10 @@ function like(post_id, user_id, postCount) {
     dataType:"json",
     // accepts:"application/json",
     success: function(response) {
-      alert('Success');
+      
       $("#like"+post_id).html(postCount+1);
       console.log('here2');
+      
       console.log(response);
 
     },
@@ -79,6 +83,7 @@ function like(post_id, user_id, postCount) {
       alert('Failed');
       console.log(response);
     }
+    
   });
 
 }

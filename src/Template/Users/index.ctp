@@ -117,7 +117,7 @@
       </div>
       <div class="col-xs-8 text-right">
         <span> New messages </span>
-        <h2 class="font-bold"><?php echo  sizeof($friends);?></h2>
+        <h2 class="font-bold"><?php echo  sizeof($messages);?></h2>
       </div>
     </div>
   </div>
@@ -134,9 +134,10 @@
             <small class="text-muted">Today 5:60 pm - 12.06.2014</small>
           </div>
         </div>
+        <?php endforeach; ?>
       </div>
     </div>
   </div>
-  <?php endforeach; ?>
+  
 </div>
 </div>

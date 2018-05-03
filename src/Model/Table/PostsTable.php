@@ -50,7 +50,7 @@ class PostsTable extends Table
         $this->belongsTo('Receivers', [
             'className' => 'Users',
             'foreignKey' => 'receiver_id',
-            'joinType' => 'INNER'
+            'joinType' => 'LEFT'
         ]);
         $this->hasMany('Likes', [
             'foreignKey' => 'post_id'

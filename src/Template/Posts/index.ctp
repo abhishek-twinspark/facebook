@@ -68,7 +68,7 @@ dataType:"json",
 // accepts:"application/json",
 
 success: function(response) {
-alert('Success');
+
 $("#like"+post_id).html(postCount+1);
 console.log('here2');
 console.log(response);
@@ -96,4 +96,4 @@ width: 50%;
 
 <!-- Custom and plugin javascript -->
 <!-- <script src="js/inspinia.js"></script>
-<script src="js/plugins/pace/pace.min.js"></script> --> -->
+<script src="js/plugins/pace/pace.min.js"></script> --> 
